@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="admin.css">
+    <title>Admin Panel</title>
+</head>
+<body>
+    <header>
+        <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+        <span onclick="showDashboard()">Admin Panel</span>
+    </header>
+
+    <div class="admin-panel">
+        <nav class="sidebar">
+            <h2>Admin Panel</h2>
+            <div role="button" onclick="showDashboard()">Dashboard</div>
+            <div role="button" onclick="showUsers()">Users</div>
+            <div role="button" onclick="showCreateUser()">Create User</div> <!-- New option to create user -->
+            <div role="button" onclick="showWithdrawal()">Withdrawal</div>
+            <div role="button" onclick="showSettings()">Settings</div>
+            <div role="button" onclick="showReports()">Reports</div>
+            <div role="button" onclick="logout()">Logout</div>
+        </nav>
+        
+        <main class="main-content">
+            <h1>Dashboard</h1>
+            <section id="dashboard-metrics">
+                <div class="metric">
+                    <h3>Wallet Earnings</h3>
+                    <p id="wallet-earnings">0</p>
+                </div>
+            </section>
+        
+            <section id="users" style="display: none;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Phone Number</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="user-table-body">
+                        <!-- User data will be inserted here -->
+                    </tbody>
+                </table>
+                <div class="no-users" id="no-users-message" style="display:none;">No users found.</div>
+            </section>
+
+            <!-- New Section for Creating User -->
+            <section id="create-user" style="display: none;">
+                <h2>Create New User</h2>
+                <form id="create-user-form">
+                    <label for="new-username">Username</label>
+                    <input type="text" id="new-username" required>
+
+                    <label for="new-phone">Phone Number</label>
+                    <input type="text" id="new-phone" required>
+
+                    <label for="new-password">Password</label>
+                    <input type="password" id="new-password" required>
+
+                    <label for="new-referral">Referral Code (Optional)</label>
+                    <input type="text" id="new-referral">
+
+                    <button type="button" onclick="createUser()">Create User</button>
+                    <button type="button" onclick="showUsers()">Cancel</button>
+                </form>
+            </section>
+
+            <section id="user-details" style="display: none;">
+                <h2>User Details</h2>
+                <form id="user-form">
+                    <label for="joindate">User Join Date</label>
+                    <div id="joindate" class="join-date-box"></div>
+
+                    <label for="username">Username</label>
+                    <input type="text" id="username" required>
+
+                    <label for="phone">Phone Number</label>
+                    <input type="text" id="phone" required>
+
+                    <label for="password">Password</label>
+                    <input type="text" id="password" required minlength="8">
+
+                    <label for="user-id">User ID</label>
+                    <input type="text" id="user-id" readonly>
+
+                    <label for="referral-count">Referral Count</label>
+                    <input type="text" id="referral-count" readonly>
+
+                    <button type="button" onclick="updateUser()">Update</button>
+                    <button type="button" onclick="showUsers()">Cancel</button>
+                    <button class="delete-btn" type="button" onclick="deleteUser()">Delete User</button>
+                </form>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            const toggleButton = document.querySelector('.toggle-btn');
+            sidebar.classList.toggle('open');
+            toggleButton.innerHTML = sidebar.classList.contains('open') ? '✖' : '☰';
+        }
+
+        function showDashboard() {
+            document.getElementById('users').style.display = 'none';
+            document.getElementById('create-user').style.display = 'none';
+            document.getElementById('user-details').style.display = 'none';
+            document.getElementById('dashboard-metrics').style.display = 'flex';
+            document.querySelector('.main-content h1').innerText = 'Dashboard';
+        }
+
+        function showUsers() {
+            document.getElementById('users').style.display = 'block';
+            document.getElementById('create-user').style.display = 'none';
+            document.getElementById('user-details').style.display = 'none';
+            document.getElementById('dashboard-metrics').style.display = 'none';
+            document.querySelector('.main-content h1').innerText = 'Users';
+            loadUsers();
+        }
+
+        function showCreateUser() {
+            document.getElementById('users').style.display = 'none';
+            document.getElementById('create-user').style.display = 'block';
+            document.getElementById('user-details').style.display = 'none';
+            document.getElementById('dashboard-metrics').style.display = 'none';
+            document.querySelector('.main-content h1').innerText = 'Create New User';
+        }
+
+        function loadUsers() {
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const userTableBody = document.getElementById('user-table-body');
+            const noUsersMessage = document.getElementById('no-users-message');
+
+            userTableBody.innerHTML = '';
+
+            if (users.length === 0) {
+                noUsersMessage.style.display = 'block';
+            } else {
+                noUsersMessage.style.display = 'none';
+                users.forEach((user, index) => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${user.username}</td>
+                        <td>${user.phone}</td>
+                        <td>
+                            <button class="action-btn" onclick='viewUser(${JSON.stringify(user).replace(/'/g, "\\'")})'>View</button>
+                        </td>
+                    `;
+                    userTableBody.appendChild(row);
+                });
+            }
+        }
+
+        function viewUser(user) {
+            document.getElementById('users').style.display = 'none';
+            document.getElementById('dashboard-metrics').style.display = 'none';
+            document.getElementById('user-details').style.display = 'block';
+            document.querySelector('.main-content h1').innerText = 'Edit User';
+
+            // Populate the form with user details
+            document.getElementById('username').value = user.username;
+            document.getElementById('phone').value = user.phone;
+            document.getElementById('password').value = user.password || '';
+            
+            // Display the join date, user ID, and referral count
+            document.getElementById('joindate').innerText = user.joinDate || 'N/A';
+            document.getElementById('user-id').value = user.userId;
+            document.getElementById('referral-count').value = user.referralCount || 0;
+
+            // Store the current user for deletion later
+            localStorage.setItem('currentUser', JSON.stringify(user));
+        }
+
+        function createUser() {
+            const newUsername = document.getElementById('new-username').value.trim();
+            const newPhone = document.getElementById('new-phone').value.trim();
+            const newPassword = document.getElementById('new-password').value.trim();
+            const newReferral = document.getElementById('new-referral').value.trim();
+
+            if (!newUsername || !newPhone || !newPassword) {
+                alert('Please fill out all required fields.');
+                return;
+            }
+
+            const newUser = {
+                userId: generateUserId(),
+                username: newUsername,
+                phone: newPhone,
+                password: newPassword,
+                referralCount: 0,
+                joinDate: new Date().toLocaleString(),
+                referral: newReferral
+            };
+
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            if (users.some(user => user.phone === newPhone || user.username === newUsername)) {
+                alert('User with this phone number or username already exists.');
+                return;
+            }
+
+            users.push(newUser);
+            localStorage.setItem('users', JSON.stringify(users));
+
+            alert('User created successfully!');
+            showUsers();
+        }
+
+        function generateUserId() {
+            return Math.floor(10000 + Math.random() * 90000);
+        }
+
+        function updateUser() {
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+            const updatedUser = {
+                username: document.getElementById('username').value,
+                phone: document.getElementById('phone').value,
+                password: document.getElementById('password').value,
+                userId: currentUser.userId, 
+                referralCount: currentUser.referralCount,
+                joinDate: currentUser.joinDate 
+            };
+
+            const index = users.findIndex(user => user.username === currentUser.username);
+            if (index !== -1) {
+                users[index] = updatedUser;
+                localStorage.setItem('users', JSON.stringify(users));
+                localStorage.setItem('currentUser', JSON.stringify(updatedUser));
+            }
+
+            showUsers();
+        }
+
+        function deleteUser() {
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+            const index = users.findIndex(user => user.username === currentUser.username);
+            if (index !== -1) {
+                users.splice(index, 1);
+                localStorage.setItem('users', JSON.stringify(users));
+                localStorage.removeItem('currentUser');
+            }
+
+            showUsers();
+        }
+
+        function showWithdrawal() {
+            window.location.href = 'withdrawal.html';
+        }
+
+        function showSettings() {
+            alert('Settings page is not implemented yet.');
+        }
+
+        function showReports() {
+            alert('Reports page is not implemented yet.');
+        }
+
+        function logout() {
+            alert('Logout functionality is not implemented yet.');
+        }
+    </script>
+</body>
+</html>

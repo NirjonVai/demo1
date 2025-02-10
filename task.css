@@ -1,0 +1,192 @@
+ *{
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+ }
+ 
+ body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: #0a3a69;
+      }
+        
+header {
+            display: flex; 
+            align-items: center; 
+            padding: 12px;
+            background: #125392;
+            color: #fff;
+            position: relative; 
+        }
+        h1 {
+            margin: 0;
+            font-size: 24px;
+            flex-grow: 1; 
+            text-align: center; 
+        }
+        .back-button {
+            padding: 0;
+            font-size: 16px;
+            color: #fff;
+            background-color: transparent; 
+            border: none;
+            display: flex; 
+            align-items: center; 
+        }
+        .back-button i {
+            font-size: 20px; 
+        }
+
+
+#task-container {
+            
+            flex-direction: column;
+            align-items: center;
+            width: 90%;
+            margin: auto;
+            margin-top: 20px;
+            margin-bottom: 100px;
+        }
+        
+.task-date {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #f1f1f1;
+}
+
+.task-list {
+            background-color: #125392da;
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .task-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #e7d050;
+            margin-bottom: 10px;
+        }
+
+        .task-description {
+            font-size: 14px;
+            color: #f1f1f1;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+       #task-price {
+            font-size: 15px;
+            font-weight: bold;
+            color: #e7d050;
+            background-color: #0a3d62; /* Background color for task price */
+            padding: 4px 10px; /* Padding inside the background */
+            border-radius: 5px;
+            margin-top: -7px;
+        }
+
+        #task-time {
+            font-size: 13px;
+            color: #fdcb6e;
+            font-weight: bold;
+        }
+
+        .task-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+       .task-btn {
+            background-color: #276797;
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 8px;
+            font-size: 16px;
+            border-radius: 5px;
+            font-weight: bold;
+            margin: auto;
+        }
+
+.wallet-box {
+            width: 280px;
+            margin: auto;
+            background: #094887;
+            padding: 1px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        #username-display {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 15px;
+        }
+
+        #username-display i {
+            font-size: 50px; /* Adjust size as needed */
+            color: #5cf; /* Icon color */
+            margin-bottom: 5px; /* Space between icon and username */
+        }
+
+        #username-text {
+            color: #fff; /* Username color */
+            font-size: 16px; /* Adjust font size as needed */
+            font-weight: bold;
+        }
+
+        #wallet-earnings {
+            text-align: center;
+            color: #e7d050;
+            font-size: 25px;
+            font-weight: bold;
+            margin-top: 8px; /* Space between username and wallet earnings */
+            
+        }
+
+        .earnings p {
+            font-size: 15px;
+            text-align: center;
+            margin-top: 10px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+.footer {
+    position: fixed;
+    background-color: #125392da;
+    color: white;
+    text-align: center;
+    padding: 8px;
+    bottom: 0;
+    z-index: 10;
+}
+
+.footer-content {
+    margin-bottom: 10px;
+}
+
+.footer-links {
+    margin-top: 10px;
+}
+
+.footer-links p {
+    display: inline; /* Make paragraphs display inline */
+    color: white;
+    margin: 0 5px;
+    padding: 2px 5px;
+    font-size: 14px;
+}
+
+.footer-links p:hover {
+    background-color: rgba(255, 255, 255, 0.2); /* Light background on hover */
+    color: #f0f0f0; /* Change text color on hover */
+    border-radius: 4px; /* Slight rounding of corners */
+}

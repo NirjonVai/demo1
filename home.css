@@ -1,0 +1,443 @@
+ *{
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+ }
+ 
+ body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: #0a3a69;
+      }
+        
+   /* General Header Styles */
+#header-Page {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #182C61;
+    color: white;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 999;
+}
+
+.toggle-icon {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+#dashboard {
+  width: 95%;
+  margin: auto;
+  margin-top: 65px;
+}
+
+/* Style for the 'Noted Notice' section */
+#noted-notice {
+    background-color: #f8f9fa; /* Light background for the notice */
+    border-left: 5px solid #17a2b8; /* Blue border on the left to make it stand out */
+    padding: 10px 20px; /* Padding inside the notice box */
+    margin-bottom: 20px; /* Space below the notice box */
+    font-family: Arial, sans-serif; /* Font family */
+    color: #333; /* Dark text for easy readability */
+}
+
+#noted-notice h3 {
+    margin: 0; /* Remove margin from h3 */
+    font-size: 18px; /* Larger text for the heading */
+    color: #17a2b8; /* Matching blue color for the heading */
+    font-weight: bold;
+}
+
+#noted-notice p {
+    margin-top: 5px; /* Space between the heading and the message */
+    font-size: 11px; /* Standard font size for the message */
+    color: #555; /* Slightly lighter gray text color */
+    font-weight: bold;
+}
+
+    .join-container {
+    text-align: center;
+    padding: 10px;
+    background-color: #125392da;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.join-text {
+    font-size: 14px;
+    color: #fff;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+#join-button {
+    background-color: #007bff;
+    color: white;
+    font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.sidebar {
+    width: 200px;
+    height: 100%;
+    background: #125392;
+    position: fixed;
+    left: -250px;
+    transition: left 0.3s ease;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 100px;
+    top: 0; /* Align the sidebar at the top */
+    z-index: 10;
+}
+
+.sidebar.open {
+    left: 0;
+    display: block;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-top: 60px;
+}
+
+li {
+    margin: 10px 0; /* Equal vertical margin between items */
+    padding: 10px; /* Consistent padding around the list items */
+    width: 80%;
+    color: #fff; /* Text color */
+    border-radius: 5px;
+    transition: background 0.3s;
+    display: flex; /* Use flexbox for alignment */
+    align-items: center; /* Center align icons and text */
+    font-weight: bold;
+}
+
+.sidebar li i {
+    color: #0ff; /* Icon color */
+    margin-right: 15px; /* Consistent gap between icon and text */
+    font-size: 20px;
+}
+
+.sidebar li:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* General container styles */
+.use-box {
+    width: 85%;
+    text-align: center;
+    border: 1px solid #ddd;
+    padding: 5px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #125392;
+}
+
+.use-box img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-top: -18px;
+}
+
+.use-box h2 {
+    font-size: 18px;
+    color: #fff;
+    margin-top: -18px;
+    margin-bottom: 5px;
+}
+
+.use-box p {
+    font-size: 20px;
+    color: #ffff
+    font-weight: bold;
+}
+
+.wallet-info {
+    margin-top: 5px;
+    font-size: 18px;
+    color: #fff;
+}
+
+.wallet-info, #user-id-display {
+  color: #fff;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.wallet-info #wallet-earnings {
+    color: #e7d050;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+
+
+#form-section {
+    width: 90%;
+    background: #094887;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: auto;
+    margin-top: 100px;
+}
+
+.form-container {
+    width: 100%;
+    margin: auto;
+}
+
+.form-toggle {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;  
+}
+
+.form-container button {
+    background: #007BFF;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    flex: 1; /* Allow buttons to grow */
+    margin: 0 10px; 
+    font-size: 20px;
+}
+
+button:first-child {
+    margin-left: 0; /* Remove left margin for the first button */
+}
+
+button:last-child {
+    margin-right: 0; /* Remove right margin for the last button */
+}
+
+button.active {
+    background: #0056b3;
+}
+
+.form {
+    display: none;
+}
+
+.form.active {
+    display: block;
+}
+
+h2 {
+    text-align: center; /* Center the heading */
+    color: #e9e3e3;
+}
+
+input {
+    background: #0a3a69;
+    color: #fff;
+    width: 100%; /* Adjust this value to your preference */
+    padding: 10px;
+    margin: 20px auto; /* Center input fields */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: block;
+    outline: none;
+}
+
+input::placeholder {
+            color: #e9e3e3;
+        }
+
+.button-container {
+    display: flex; /* Use flex to center the buttons */
+    justify-content: center; /* Center the buttons */
+    margin-top: 20px; 
+}
+
+.hidden {
+    display: none;
+}
+
+.footer {
+    position: fixed;
+    background-color: #125392da;
+    color: white;
+    text-align: center;
+    padding: 8px;
+    bottom: 0;
+    z-index: 10;
+}
+
+.footer-content {
+    margin-bottom: 10px;
+}
+
+.footer-links {
+    margin-top: 10px;
+}
+
+.footer-links p {
+    display: inline; /* Make paragraphs display inline */
+    color: white;
+    margin: 0 5px;
+    padding: 2px 5px;
+    font-size: 14px;
+}
+
+.footer-links p:hover {
+    background-color: rgba(255, 255, 255, 0.2); /* Light background on hover */
+    color: #f0f0f0; /* Change text color on hover */
+    border-radius: 4px; /* Slight rounding of corners */
+}
+
+/* Style for each withdrawal record */
+/* Basic styling for the withdrawal history section */
+#withdrawHistory {
+       width: 100%;
+      padding: 0px 10px;
+      border-radius: 5px;
+      background-color: #125392da;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      overflow-y: auto;
+      max-height: 430px;
+      margin-bottom: 80px;
+}
+
+#withdrawHistory h3 {
+      font-size: 16px;
+      font-weight: bold;
+      color: #fff;
+      padding-bottom: 5px;
+      border-bottom: 2px solid #ddd;
+      margin-top: 5px;
+}
+
+.withdraw-wrap {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px;
+      border-bottom: 1px solid #e2e2e2;
+      border-radius: 8px;
+}
+
+/* Style for each withdrawal record */
+.withdraw-record {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+/* Container for the withdrawal details (name, amount, date) */
+.withdraw-details {
+    flex: ;
+    color: #f9f9f9c8;
+    font-size: 11px;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+}
+
+.withdraw-details .history-name {
+  color: #fff;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.withdraw-details .history-item {
+  margin-left: 10px;
+}
+
+.withdraw-details .amount {
+      font-weight: bold;
+      color: #e0c768;
+      font-size: 12px;
+      margin-left: 5px;
+    }
+
+/* Style for the withdrawal status section on the right side */
+.withdraw-status {
+    font-size: 12px;
+      font-weight: bold;
+      color: #8ce068;
+      text-align: right; /* Align status text to the right */
+      background-color: #276797;
+      padding: 5px 10px;
+      border-radius: 5px;
+      display: inline-block;
+}
+
+/* Style for the icons and text within the withdraw-details */
+.withdraw-details p {
+    margin: 2px 0;
+}
+
+.withdraw-details i {
+    font-size: 18px;
+    margin-right: 1px;
+    color: #44e061;
+}
+
+.code-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 300px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#promo-code {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    outline: none;
+}
+
+#promo-code:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+#submit-code-btn {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#submit-code-btn:hover {
+    background-color: #0056b3;
+}

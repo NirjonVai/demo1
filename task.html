@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="task.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>My Task</title>
+</head>
+<body>
+  
+    <header>
+        <button type="button" class="back-button" onclick="goToHome()">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+        <h1>My Task</h1>
+    </header>
+    
+      <!-- Wallet Box -->
+    <div class="wallet-box">
+        <div id="username-display" class="username">
+            <i class="fa-solid fa-circle-user"></i>
+            <span id="username-text"></span>
+        </div>
+        <div class="earnings">
+            <p>Available Balance</p>
+            <p id="wallet-earnings"></p>
+        </div>
+    </div>
+ 
+    <div id="task-container">
+        <div class="task-list">
+            <p class="task-date" id="task1-date">Date: </p>
+            <h3 class="task-title">Advertiser Task</h3>
+            <p class="task-description">Description of Task 1 goes here. Complete this task to earn money.</p>
+            <div class="task-info">
+                <p id="task-time">Task Visit Time <span id="left-time-1">2:30</span></p>
+                <p id="task-price">৳ 10.00</p>
+            </div>
+            <button class="task-btn" id="task1">Click Now</button>
+        </div>
+        <div class="task-list">
+            <p class="task-date" id="task2-date">Date: </p>
+            <h3 class="task-title">Advertiser Task</h3>
+            <p class="task-description">Description of Task 2 goes here. Complete this task to earn money.</p>
+            <div class="task-info">
+                <p id="task-time">Task Visit Time <span id="left-time-2">2:30</span></p>
+                <p id="task-price">৳ 10.00</p>
+            </div>
+            <button class="task-btn" id="task2">Click Now</button>
+        </div>
+        <div class="task-list">
+            <p class="task-date" id="task3-date">Date: </p>
+            <h3 class="task-title">Advertiser Task</h3>
+            <p class="task-description">Description of Task 3 goes here. Complete this task to earn money.</p>
+            <div class="task-info">
+                <p id="task-time">Task Visit Time <span id="left-time-3">2:30</span></p>
+                <p id="task-price">৳ 10.00</p>
+            </div>
+            <button class="task-btn" id="task3">Click Now</button>
+        </div>
+        <div class="task-list">
+            <p class="task-date" id="task4-date">Date: </p>
+            <h3 class="task-title">Advertiser Task</h3>
+            <p class="task-description">Description of Task 4 goes here. Complete this task to earn money.</p>
+            <div class="task-info">
+                <p id="task-time">Task Visit Time <span id="left-time-4">2:30</span></p>
+                <p id="task-price">৳ 10.00</p>
+            </div>
+            <button class="task-btn" id="task4">Click Now</button>
+        </div>
+        <div class="task-list">
+            <p class="task-date" id="task5-date">Date: </p>
+            <h3 class="task-title">Advertiser Task</h3>
+            <p class="task-description">Description of Task 5 goes here. Complete this task to earn money.</p>
+            <div class="task-info">
+                <p id="task-time">Task Visit Time <span id="left-time-5">2:30</span></p>
+                <p id="task-price">৳ 10.00</p>
+            </div>
+            <button class="task-btn" id="task5">Click Now</button>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            © 2025 All Rights Reserved.
+        </div>
+        <div class="footer-links">
+            <p>Privacy Policy</p> |
+            <p>Terms of Service</p> |
+            <p>Contact Us</p>
+        </div>
+    </footer>
+
+    <script>
+
+        let totalEarnings = 0;
+        let username = localStorage.getItem("username");
+
+        function initializeUserData() {
+            if (username) {
+                totalEarnings = parseFloat(localStorage.getItem(`${username}_earnings`)) || 0;
+            }
+        }
+
+        function updateDisplayedEarnings() {
+            const walletEarningsElement = document.getElementById('wallet-earnings');
+            walletEarningsElement.textContent = ` ৳${Math.floor(totalEarnings)}`; // Updated to show integer without decimals
+        }
+
+        function addTask(taskId) {
+            const taskKey = `${username}_task_${taskId}_date`;
+            const currentDate = getCurrentDate();
+
+            let taskCompletionDate = localStorage.getItem(taskKey);
+
+            if (taskCompletionDate === currentDate) {
+                alert("You've already completed this task today!");
+                disableButton(taskId);
+                return;
+            }
+
+            totalEarnings += 10; // Add 10৳ per task
+            localStorage.setItem(`${username}_earnings`, totalEarnings); // Save the new earnings
+            localStorage.setItem(taskKey, currentDate); // Save the completion date
+            updateDisplayedEarnings(); // Update the displayed earnings
+            disableButton(taskId); // Disable the button after task completion
+        }
+
+        function startCountdown(taskId, timeElementId) {
+            let remainingTime = 2; // 2:30 minutes in seconds (2*60 + 30)
+            const timeElement = document.getElementById(timeElementId);
+
+            const countdown = setInterval(function() {
+                const minutes = Math.floor(remainingTime / 60);
+                const seconds = remainingTime % 60;
+                timeElement.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+
+                if (remainingTime <= 0) {
+                    clearInterval(countdown);
+                    addTask(taskId);
+                }
+
+                remainingTime--;
+            }, 1000);
+        }
+
+        function disableButton(taskId) {
+            const taskButton = document.getElementById(`task${taskId}`);
+            taskButton.disabled = true;
+            taskButton.textContent = 'You Have Received ৳10';
+        }
+
+        function getCurrentDate() {
+            const today = new Date();
+            const day = today.getDate();
+            const month = today.getMonth() + 1; // Months are zero-indexed
+            const year = today.getFullYear();
+            return `${day}-${month}-${year}`;
+        }
+
+        function resetTasksAtMidnight() {
+            const now = new Date();
+            const nextMidnight = new Date();
+            nextMidnight.setHours(24, 0, 0, 0);
+
+            const timeUntilMidnight = nextMidnight.getTime() - now.getTime();
+
+            setTimeout(function() {
+                for (let i = 1; i <= 5; i++) {
+                    const taskKey = `${username}_task_${i}_date`;
+                    localStorage.removeItem(taskKey);
+                    const taskButton = document.getElementById(`task${i}`);
+                    taskButton.disabled = false;
+                    taskButton.textContent = 'Click Now';
+                }
+                resetTasksAtMidnight();
+            }, timeUntilMidnight);
+        }
+
+        window.onload = function() {
+            initializeUserData();
+            updateDisplayedEarnings();
+
+            if (username) {
+                document.getElementById("username-display").textContent = ` ${username}`;
+            }
+
+            // Add event listeners for the task buttons
+            document.getElementById('task1').addEventListener('click', function() { 
+                window.location.href = 'https://task-bd.com'; 
+                startCountdown(1, 'left-time-1'); 
+            });
+            document.getElementById('task2').addEventListener('click', function() { 
+                window.location.href = 'https://task-bd.com'; 
+                startCountdown(2, 'left-time-2'); 
+            });
+            document.getElementById('task3').addEventListener('click', function() { 
+                window.location.href = 'https://task-bd.com'; 
+                startCountdown(3, 'left-time-3'); 
+            });
+            document.getElementById('task4').addEventListener('click', function() { 
+                window.location.href = 'https://task-bd.com'; 
+                startCountdown(4, 'left-time-4'); 
+            });
+            document.getElementById('task5').addEventListener('click', function() { 
+                window.location.href = 'https://task-bd.com'; 
+                startCountdown(5, 'left-time-5'); 
+            });
+
+            document.getElementById('task1-date').textContent = `Date: ${getCurrentDate()}`;
+            document.getElementById('task2-date').textContent = `Date: ${getCurrentDate()}`;
+            document.getElementById('task3-date').textContent = `Date: ${getCurrentDate()}`;
+            document.getElementById('task4-date').textContent = `Date: ${getCurrentDate()}`;
+            document.getElementById('task5-date').textContent = `Date: ${getCurrentDate()}`;
+
+            for (let i = 1; i <= 5; i++) {
+                const taskKey = `${username}_task_${i}_date`;
+                const taskCompletionDate = localStorage.getItem(taskKey);
+                if (taskCompletionDate === getCurrentDate()) {
+                    disableButton(i);
+                }
+            }
+
+            resetTasksAtMidnight();
+        };
+
+        function goToHome() {
+            window.location.href = 'home.html';
+        }
+    </script>
+    <script src="name.js"></script>
+</body>
+</html>

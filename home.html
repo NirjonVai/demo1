@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Click Task Bd</title>
+</head>
+<body>
+  <div id="sidebar" class="sidebar">
+        <ul>
+         <div class="use-box">
+           <img src="profile.png" alt="image">
+            <h2 id="username-display"></h2>
+            <p id="user-id-display"></p>
+            <p id="referral-count-display" style="display:none;"></p>
+            <div class="wallet-info">
+            <p>৳<span id="wallet-earnings">0.00</span></p>
+        </div>
+        </div>
+            <li id="dashboard-link"><i class="fa-solid fa-house"></i>Dashboard</li>
+            <li onclick="goToProfile()"><i class="fa-solid fa-circle-user"></i> My Profile</li>
+            <li onclick="goToTask()"><i class="fa-solid fa-list-check"></i>My Task</li>
+            <li onclick="goToWithdraw()"><i class="fa-solid fa-circle-down"></i> Withdrawal</li>
+            <li onclick="goToReward()"><i class="fa-solid fa-trophy"></i>Lottery</li>
+            <li onclick="goToReferral()"><i class="fa-solid fa-registered"></i>Referral</li>
+            <li onclick="goToHistory()"><i class="fa-brands fa-elementor"></i>History</li>
+            <li><i class="fas fa-question-circle"></i> Help Center</li>
+            <li><i class="fas fa-shield-alt"></i> Privacy Policy</li>
+            <li><i class="fas fa-star"></i> Rate Us</li>
+            <li id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</li>
+        </ul>
+    </div>
+    
+    <header id="header-Page">
+      <h3>Click Task Bd</h3>
+      <button id="toggleButton" class="toggle-icon">
+            <i class="fa-solid fa-bars" id="icon"></i>
+        </button>
+    </header>
+  
+  <main id="dashboard" style="display:none;">
+    <!-- Noted Notice Section -->
+<div id="noted-notice">
+    <h3>Noted Notice</h3>
+    <p>আপনাকে Click Task Bd এর প্লাটফর্মে স্বাগতম। 🎉 এই প্লাটফর্ম থেকে আপনি খুব সহজে টাস্কের কাজ সম্পন্ন করে ও রেফার করে ইনকাম করতে পারবেন। 🤩 প্রতিদিন টাস্কের কাজ সম্পন্ন করে সর্বনিম্ন ৳৫০ টাকা থেকে সর্বোচ্চ ৳৫০০ টাকা ইনকাম করতে পারবেন। 🤩 আর সেই সাথে রেফার করে থাকছে- আনলিমিটেড ইনকাম করার সুযোগ। 🤩 Click Task Bd প্লাটফর্মে, রেফার কমিশন পাওয়া যায় 🎁- আপনি যদি টাস্কের কাজ সঠিক ভাবে না করেন''' আর - ফেক রেফার করেন এবং Telegram Channel এ জয়েন না থাকেন, তাহলে ১০০% আপনার পেমেন্ট বাতিল করা হবে মনে রাখবেন! </p>
+</div>
+        <div class="join-container">
+    <p class="join-text">বিস্তারিত তথ্য জানতে, বা নতুন নতুন আপডেট সবার আগে পেতে নিচের টেলিগ্রাম চ্যানেলে Join করন।</p>
+    <button id="join-button" onclick="window.location.href='https://t.me/clicktaskbdofficial';">Join Now</button>
+</div>
+<div id="withdrawHistory"></div>
+    </main>
+  
+    <div id="form-section">
+        <div class="form-container">
+            <div class="form-toggle">
+                <button id="login-btn" class="active">Login</button>
+                <button id="signup-btn">Signup</button>
+            </div>
+            <form id="login-form" class="form active">
+                <h2>Login Form</h2>
+                <input type="tel" placeholder="Phone Number" required id="login-phone">
+                <input type="password" placeholder="Login Password" required id="login-password">
+                <div class="button-container">
+                    <button type="submit">Login</button>
+                </div>
+            </form>
+            <form id="signup-form" class="form hidden">
+                <h2>Signup Form</h2>
+                <input type="text" placeholder="Username" required id="signup-username">
+                <input type="tel" placeholder="Phone Number" required id="signup-phone">
+                <input type="password" placeholder="Password" required id="signup-password">
+                <input type="password" placeholder="Confirm Password" required id="signup-confirm-password">
+                <input type="text" placeholder="Referral Code" id="signup-referral">
+                <div class="button-container">
+                    <button type="submit">Signup</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <footer class="footer">
+        <div class="footer-content">
+            © 2025 All Rights Reserved.
+        </div>
+        <div class="footer-links">
+            <p>Privacy Policy</p> |
+            <p>Terms of Service</p> |
+            <p>Contact Us</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Function to generate a random 5-digit user ID
+        function generateUserId() {
+            return Math.floor(10000 + Math.random() * 90000);
+        }
+
+        // Initialize demo user
+        function initializeDemoUser() {
+            const demoUser = {
+                userId: 12345,  
+                username: 'demo1',
+                phone: '1234567890', 
+                password: 'Demo',
+                referral: '', 
+                referralCount: 0,
+                joinDate: new Date().toLocaleString('en-BD', {
+                    timeZone: 'Asia/Dhaka',
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit',
+                    hour: 'numeric',
+                    minute: 'numeric',
+                    second: 'numeric',
+                    hour12: true
+                }).replace(',', '')
+            };
+
+            let users = JSON.parse(localStorage.getItem('users')) || [];
+            if (!users.find(u => u.username === demoUser.username)) {
+                users.push(demoUser);  
+                localStorage.setItem('users', JSON.stringify(users));
+            }
+        }
+
+        // Handle signup form submission
+        document.getElementById('signup-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const username = document.getElementById('signup-username').value.trim();
+            const phone = document.getElementById('signup-phone').value.trim();
+            const password = document.getElementById('signup-password').value;
+            const confirmPassword = document.getElementById('signup-confirm-password').value;
+            const referral = document.getElementById('signup-referral').value.trim();
+
+            if (!username || !phone || !password || !confirmPassword) {
+                alert('All fields are required.');
+                return;
+            }
+            
+            if (password !== confirmPassword) {
+                alert('Passwords do not match.');
+                return;
+            }
+
+            const joinDate = new Date().toLocaleString('en-BD', {
+                timeZone: 'Asia/Dhaka',
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: 'numeric',
+                minute: 'numeric',
+                second: 'numeric',
+                hour12: true
+            }).replace(',', '');
+
+            const userId = generateUserId();
+
+            const user = {
+                userId: userId,  
+                username: username,
+                phone: phone,
+                password: password,
+                referral: referral, 
+                referralCount: 0,   
+                joinDate: joinDate 
+            };
+
+            let users = JSON.parse(localStorage.getItem('users')) || [];
+            
+            if (users.find(u => u.phone === phone)) {
+                alert('User with this phone number already exists.');
+                return;
+            }
+            if (users.find(u => u.username === username)) {
+                alert('Username already exists.');
+                return;
+            }
+
+            if (referral) {
+                const referredUser = users.find(u => u.userId == referral); 
+                if (!referredUser) {
+                    alert('Invalid referral code.');
+                    return; 
+                }
+
+                let referredEarnings = parseFloat(localStorage.getItem(`${referredUser.username}_earnings`)) || 0;
+                referredEarnings += 100;
+                localStorage.setItem(`${referredUser.username}_earnings`, referredEarnings.toFixed(2));
+
+                referredUser.referralCount += 1;
+                localStorage.setItem('users', JSON.stringify(users)); 
+            }
+
+            users.push(user);
+            localStorage.setItem('users', JSON.stringify(users));
+
+            localStorage.setItem(`${username}_earnings`, '0.00');
+            localStorage.setItem(`${username}_submissionCount`, '0');
+            localStorage.setItem(`${username}_joinDate`, joinDate); 
+
+            alert('Signup successful! You can now log in.');
+            window.location.href = 'home.html';
+        });
+
+        // Handle login form submission
+        document.getElementById('login-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const phone = document.getElementById('login-phone').value.trim();
+            const password = document.getElementById('login-password').value;
+
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+
+            if (phone === 'admin##12' && password === 'admin##12') {
+                window.location.href = 'admin.html';
+                return;
+            }
+
+            const user = users.find(u => u.phone === phone && u.password === password);
+            
+            if (user) {
+                localStorage.setItem("username", user.username);
+                document.getElementById('form-section').style.display = 'none';
+                document.getElementById('dashboard').style.display = 'block';
+                document.getElementById('sidebar').style.display = 'block';
+
+                const userEarnings = localStorage.getItem(`${user.username}_earnings`) || '0.00';
+                document.getElementById('wallet-earnings').textContent = userEarnings;
+
+                document.getElementById('username-display').textContent = user.username;
+                document.getElementById('user-id-display').textContent = `User ID: ${user.userId}`;
+                document.getElementById('referral-count-display').textContent = `Referral Count: ${user.referralCount}`;
+            } else {
+                alert('Invalid phone number or password.');
+            }
+        });
+
+        // Logout functionality
+        document.getElementById('logout-btn').addEventListener('click', function() {
+            localStorage.removeItem("username");
+            document.getElementById('form-section').style.display = 'block';
+            document.getElementById('dashboard').style.display = 'none';
+            document.getElementById('sidebar').style.display = 'none';
+        });
+
+        // Function to generate random withdrawal history with payment methods
+        function generateWithdrawalHistory() {
+            const fakeNames = ["John Doe", "Jane Smith", "Sam Brown", "Lisa Green", "Michael Black"];
+            const methods = ["BKash", "Nagad", "Binance"];  // Possible payment methods
+            const statuses = ["Success"];
+            const withdrawalHistory = JSON.parse(localStorage.getItem('withdrawalHistory')) || [];
+
+            // Generate a random withdrawal record
+            const withdrawalAmount = (Math.random() * 3000).toFixed(2);  // Random withdrawal amount between 0 and 5000
+            if (parseFloat(withdrawalAmount) < 1800) {
+                return; // Skip if the withdrawal amount is less than ৳1800
+            }
+
+            const withdrawalRecord = {
+                amount: withdrawalAmount,
+                method: methods[Math.floor(Math.random() * methods.length)],
+                name: fakeNames[Math.floor(Math.random() * fakeNames.length)],
+                status: statuses[Math.floor(Math.random() * statuses.length)]
+            };
+
+            // Prepend the new record to the history
+            withdrawalHistory.unshift(withdrawalRecord);
+            localStorage.setItem('withdrawalHistory', JSON.stringify(withdrawalHistory));
+
+            displayWithdrawalHistory();
+        }
+
+        // Function to display withdrawal history with status and user icon
+        function displayWithdrawalHistory() {
+            const withdrawalHistory = JSON.parse(localStorage.getItem('withdrawalHistory')) || [];
+            const historyContainer = document.getElementById('withdrawHistory');
+            historyContainer.innerHTML = ''; // Clear current history
+
+            // Add a header for the withdrawal history section
+            const header = document.createElement('h3');
+            header.textContent = "Recent Withdrawals";
+            historyContainer.appendChild(header);
+
+            withdrawalHistory.forEach(record => {
+                const div = document.createElement('div');
+                div.classList.add('withdraw-record');
+                div.innerHTML = `
+                    <div class="withdraw-wrap">
+                        <div class="withdraw-details">
+                            <p class="history-name"><i class="fa-solid fa-circle-user"></i> ${record.name}</p>
+                            <p class="history-item">Withdrawal Amount:<span class="amount">৳${parseFloat(record.amount).toFixed(0)}</span></p>
+                            <p class="history-item">Payment Method: ${record.method}</p>  
+                        </div>
+                        <div class="withdraw-status">
+                            <p><span class="${record.status === 'Success' ? 'success' : ''}">${record.status}</span></p>
+                        </div>
+                    </div>
+                `;
+                historyContainer.appendChild(div);
+            });
+        }
+
+        // Call the generate function every 10 seconds
+        setInterval(generateWithdrawalHistory, 10000);
+
+        // On page load, check if the user is logged in
+        window.onload = function() {
+            const username = localStorage.getItem("username");
+
+            if (username) {
+                document.getElementById('form-section').style.display = 'none';
+                document.getElementById('dashboard').style.display = 'block';
+                document.getElementById('sidebar').style.display = 'block';
+
+                const users = JSON.parse(localStorage.getItem('users')) || [];
+                const user = users.find(u => u.username === username);
+                
+                if (user) {
+                    document.getElementById('username-display').textContent = user.username;
+                    document.getElementById('user-id-display').textContent = `User ID: ${user.userId}`;
+                    document.getElementById('referral-count-display').textContent = `Referral Count: ${user.referralCount}`;
+                    const userEarnings = localStorage.getItem(`${user.username}_earnings`) || '0.00';
+                    document.getElementById('wallet-earnings').textContent = userEarnings;
+                }
+            } else {
+                document.getElementById('form-section').style.display = 'block';
+                document.getElementById('dashboard').style.display = 'none';
+                document.getElementById('sidebar').style.display = 'none';
+            }
+
+            // Display withdrawal history when the page loads
+            displayWithdrawalHistory();
+        }
+    </script>
+    <script src="others.js"></script>
+</body>
+</html>
